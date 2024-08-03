@@ -1,9 +1,10 @@
 # Popp To The Moon BOT
 
+## Table Of Content
 - [Popp To The Moon BOT](#popp-to-the-moon-bot)
   - [POPP Social Summer Airdrop](#popp-social-summer-airdrop)
   - [POPP To The Moon](#popp-to-the-moon)
-  - [BOT FEATURE](#bot-feature)
+  - [Bot Feature](#bot-feature)
   - [Prerequisite](#prerequisite)
   - [Setup \& Configure BOT](#setup--configure-bot)
   - [Setup Session](#setup-session)
@@ -43,7 +44,7 @@ PoPP To The Moon Task Mission is Live! Join Social Summer and Claim $SD to Get P
 
 Popp to the moon is Mining game on Telegram that allow you to earn more SD.
 
-## BOT FEATURE
+## Bot Feature
 
 - Auto Mining
 - Auto Claim Mining Reward
