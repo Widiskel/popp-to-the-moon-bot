@@ -11,7 +11,7 @@ export class Telegram {
 
   constructor() {
     this.sessionName = "sessions";
-    this.url = "https://app.tabibot.com/";
+    this.url = "https://planet.popp.club/";
   }
 
   async init() {
@@ -26,7 +26,7 @@ export class Telegram {
   async onBoarding() {
     try {
       let ctx =
-        "Welcome to Tabizoo Bot \nBy : Widiskel \n \nLets getting started.\n\nYour Session List:\n";
+        "Welcome to Popp Bot \nBy : Widiskel \n \nLets getting started.\n\nYour Session List:\n";
       const sessionList = Helper.getSession("sessions");
 
       if (sessionList.length == 0) {
@@ -122,7 +122,7 @@ export class Telegram {
       logger.info(`Session ${this.session} - Resolving Peer`);
       while (this.peer == undefined) {
         try {
-          this.peer = await this.client.getEntity("tabizoobot");
+          this.peer = await this.client.getEntity("PoPPtothemoon_bot");
           break;
         } catch (error) {
           if (error instanceof FloodWaitError) {
@@ -153,22 +153,6 @@ export class Telegram {
 
   async initWebView() {
     try {
-      const theme = {
-        accent_text_color: "#168acd",
-        bg_color: "#ffffff",
-        button_color: "#40a7e3",
-        button_text_color: "#ffffff",
-        destructive_text_color: "#d14e4e",
-        header_bg_color: "#ffffff",
-        hint_color: "#999999",
-        link_color: "#168acd",
-        secondary_bg_color: "#f1f1f1",
-        section_bg_color: "#ffffff",
-        section_header_text_color: "#168acd",
-        section_separator_color: "#e7e7e7",
-        subtitle_text_color: "#999999",
-        text_color: "#000000",
-      };
       const webView = await this.client.invoke(
         new Api.messages.RequestWebView({
           peer: this.peer,
@@ -176,11 +160,10 @@ export class Telegram {
           fromBotMenu: true,
           url: this.url,
           platform: "android",
-          themeParams: new Api.DataJSON({ data: JSON.stringify(theme) }),
         })
       );
       logger.info(`Session ${this.session} - Webview Connected`);
-      // https://clicker.tabizoo.exchange/#tgWebAppData=query_id%3DAAGnbflTAgAAAKdt-VOyCnnH%26user%3D%7B%22id%22%3A5703822759%2C%22first_name%22%3A%22Widi%22%2C%22last_name%22%3A%22Saputro%22%2C%22username%22%3A%22Wskel%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D%26auth_date%3D1719831259%26hash%3De2647dd46bb9308103b20c27ba75fe8343295eed09f53d2bc927a59975d0f3c4&tgWebAppVersion=7.6&tgWebAppPlatform=tdesktop&tgWebAppThemeParams={"accent_text_color"%3A"%23168acd"%2C"bg_color"%3A"%23ffffff"%2C"button_color"%3A"%2340a7e3"%2C"button_text_color"%3A"%23ffffff"%2C"destructive_text_color"%3A"%23d14e4e"%2C"header_bg_color"%3A"%23ffffff"%2C"hint_color"%3A"%23999999"%2C"link_color"%3A"%23168acd"%2C"secondary_bg_color"%3A"%23f1f1f1"%2C"section_bg_color"%3A"%23ffffff"%2C"section_header_text_color"%3A"%23168acd"%2C"section_separator_color"%3A"%23e7e7e7"%2C"subtitle_text_color"%3A"%23999999"%2C"text_color"%3A"%23000000"}
+      // https://clicker.popp.exchange/#tgWebAppData=query_id%3DAAGnbflTAgAAAKdt-VOyCnnH%26user%3D%7B%22id%22%3A5703822759%2C%22first_name%22%3A%22Widi%22%2C%22last_name%22%3A%22Saputro%22%2C%22username%22%3A%22Wskel%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%7D%26auth_date%3D1719831259%26hash%3De2647dd46bb9308103b20c27ba75fe8343295eed09f53d2bc927a59975d0f3c4&tgWebAppVersion=7.6&tgWebAppPlatform=tdesktop&tgWebAppThemeParams={"accent_text_color"%3A"%23168acd"%2C"bg_color"%3A"%23ffffff"%2C"button_color"%3A"%2340a7e3"%2C"button_text_color"%3A"%23ffffff"%2C"destructive_text_color"%3A"%23d14e4e"%2C"header_bg_color"%3A"%23ffffff"%2C"hint_color"%3A"%23999999"%2C"link_color"%3A"%23168acd"%2C"secondary_bg_color"%3A"%23f1f1f1"%2C"section_bg_color"%3A"%23ffffff"%2C"section_header_text_color"%3A"%23168acd"%2C"section_separator_color"%3A"%23e7e7e7"%2C"subtitle_text_color"%3A"%23999999"%2C"text_color"%3A"%23000000"}
       const authUrl = webView.url;
       // console.log(authUrl);
       return Helper.getTelegramQuery(authUrl, 3);

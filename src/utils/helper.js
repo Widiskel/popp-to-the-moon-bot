@@ -6,11 +6,11 @@ import { parse, stringify } from "querystring";
 import twist from "./twist.js";
 
 export class Helper {
-  static sleep = (ms, acc, msg, obj) => {
+  static delay = (ms, acc, msg, obj) => {
     return new Promise((resolve) => {
       let remainingMilliseconds = ms;
 
-      if (acc) {
+      if (acc != undefined) {
         twist.log(msg, acc, obj, `Delaying for ${this.msToTime(ms)}`);
       } else {
         twist.info(`Delaying for ${this.msToTime(ms)}`);
@@ -18,7 +18,7 @@ export class Helper {
 
       const interval = setInterval(() => {
         remainingMilliseconds -= 1000;
-        if (acc) {
+        if (acc != undefined) {
           twist.log(
             msg,
             acc,
@@ -35,10 +35,12 @@ export class Helper {
         }
       }, 1000);
 
-      setTimeout(() => {
+      setTimeout(async () => {
         clearInterval(interval);
-        twist.log(msg, acc, obj);
-        twist.clearInfo();
+        await twist.clearInfo();
+        if (acc) {
+          twist.log(msg, acc, obj);
+        }
         resolve();
       }, ms);
     });

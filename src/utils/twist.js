@@ -1,7 +1,7 @@
 import { Twisters } from "twisters";
-import { Tabizoo } from "../core/tabizoo.js";
 import { Helper } from "./helper.js";
 import logger from "./logger.js";
+import { Popp } from "../core/poop.js";
 
 class Twist {
   constructor() {
@@ -11,51 +11,29 @@ class Twist {
 
   /**
    * @param {string} acc
-   * @param {Tabizoo} tabizoo
+   * @param {Popp} popp
    * @param {string} msg
    * @param {string} delay
    */
-  log(msg = "", acc = "", tabizoo = new Tabizoo(), delay) {
+  log(msg = "", acc = "", popp = new Popp(), delay) {
+    // console.log(acc);
     if (delay == undefined) {
       logger.info(`${acc.id} - ${msg}`);
       delay = "-";
     }
-    if (!tabizoo.user) {
-      this.twisters.put(acc.id, {
-        text: `
-================= Account ${acc.id} =============
-Name : ${acc.firstName} ${acc.lastName}
 
-Status : ${msg}
-==============================================`,
-      });
-      return;
-    }
-
-    const level = tabizoo.user.level;
-    const coins = tabizoo.user.coins;
-    const hasCheckedIn = tabizoo.user.hasCheckedIn;
-    const streak = tabizoo.user.streak;
-
-    const mining = tabizoo.mining ?? {};
-    const rate = mining.rate ?? "-";
-    const limit = mining.topLimit ?? "-";
-    const current = mining.current ?? "-";
-    const claim = mining.nextClaimTimeInSecond ?? "-";
+    const assets = popp.asset ?? {};
+    const sd = assets.sd ?? "-";
+    const probe = assets.probe ?? "-";
+    const farmedSd = assets.frozenFarmingSd ?? "-";
 
     this.twisters.put(acc.id, {
       text: `
 ================= Account ${acc.id} =============
-Name : ${acc.firstName} ${acc.lastName}
-Level              : ${level}
-Coins              : ${coins}
-Already Check In   : ${hasCheckedIn == false ? "N" : "Y"}
-Check In Streak    : ${streak}
-
-Mining Rate        : ${rate}
-Mining limit       : ${limit}
-Current            : ${current}
-Claim In           : ${Helper.msToTime(claim * 1000)}
+Name      : ${acc.firstName} ${acc.lastName}
+SD        : ${sd}
+Farmed SD : ${farmedSd}
+PROBE     : ${probe}
 
 Status : ${msg}
 Delay : ${delay}
@@ -79,8 +57,8 @@ Info : ${msg}
     this.twisters.remove(2);
   }
 
-  clear() {
-    this.twisters.flush();
+  clear(acc) {
+    this.twisters.remove(acc);
   }
 }
 export default new Twist();

@@ -3,46 +3,40 @@ import logger from "../utils/logger.js";
 
 export class API {
   constructor(query) {
-    this.url = "https://app.tabibot.com";
-    this.host = "app.tabibot.com";
+    this.url = "https://moon.popp.club";
+    this.host = "moon.popp.club";
+    this.origin = "https://planet.popp.club";
     this.ua = Helper.randomUserAgent();
     this.query = query;
   }
 
-  generateHeaders() {
+  generateHeaders(token) {
     const headers = {
       Accept: "application/json, text/plain, */*",
       "Accept-Language": "en-US,en;q=0.9,id;q=0.8",
       "Content-Type": "application/json",
-      "Sec-Fetch-Site": "same-origin",
+      "Sec-Fetch-Dest": "empty",
+      "Sec-Fetch-Site": "same-site",
       "Sec-Fetch-Mode": "cors",
       Host: this.host,
-      Origin: this.url,
-      Referer: this.url + "/",
-      "Sec-Fetch-Dest": "empty",
-      rawdata: this.query,
+      Origin: this.origin,
+      Referer: this.origin + "/",
     };
 
-    // if (token) {
-    //   headers.Authorization = token;
-    // }
+    if (token) {
+      headers.Authorization = token;
+    }
 
     return headers;
   }
 
-  async fetch(endpoint, method, cred = "include", body = {}) {
+  async fetch(endpoint, method, token, body = {}) {
     try {
       const url = `${this.url}${endpoint}`;
-      const headers = this.generateHeaders();
+      const headers = this.generateHeaders(token);
       const options = {
-        cache: "default",
-        credentials: cred,
         headers,
         method,
-        mode: "cors",
-        redirect: "follow",
-        referrer: this.url,
-        referrerPolicy: "strict-origin-when-cross-origin",
       };
       logger.info(`${method} : ${url}`);
       logger.info(`Request Header : ${JSON.stringify(headers)}`);

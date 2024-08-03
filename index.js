@@ -1,67 +1,59 @@
 import { Config } from "./src/config/config.js";
-import { RULE_GAME } from "./src/core/rule.js";
-import { Tabizoo } from "./src/core/tabizoo.js";
+import { Popp } from "./src/core/poop.js";
 import { Telegram } from "./src/core/telegram.js";
 import { Helper } from "./src/utils/helper.js";
 import logger from "./src/utils/logger.js";
 import twist from "./src/utils/twist.js";
 
-async function operation(user, query, queryObj) {
+async function operation(acc, query, queryObj) {
   try {
-    const tabizoo = new Tabizoo(user, query, queryObj);
-    twist.log(`Getting User Info`, user, tabizoo);
-    await tabizoo.login();
-    await Helper.sleep(2000, user, `Successfully Get User Info`, tabizoo);
-
-    twist.log(`Getting Mining Info`, user, tabizoo);
-    await tabizoo.getUserMining();
-    await Helper.sleep(2000, user, `Successfully Get Mining Info`, tabizoo);
-
-    twist.log(`Getting Reward Pool Info`, user, tabizoo);
-    await tabizoo.getUserReward();
-    await Helper.sleep(
-      2000,
-      user,
-      `Successfully Get Reward Pool Info`,
-      tabizoo
-    );
-
-    if (tabizoo.user.hasCheckedIn == false) {
-      twist.log(`Try To Check In`, user, tabizoo);
-      await tabizoo.checkIn();
-      await Helper.sleep(2000, user, `Successfully Check In`, tabizoo);
+    const popp = new Popp(acc, query, queryObj);
+    await popp.login();
+    if (popp.signIn == 0) {
+      await popp.checkIn();
+    }
+    await popp.getAsset();
+    await popp.getTask();
+    for (const task of popp.task) {
+      if (task.status == 0 && task.current == task.treshold && task.type != 1) {
+        if (task.taskId == 1) {
+          await popp.completeVisitTask(task);
+        } else {
+          await popp.checkTask(task);
+        }
+      } else if (task.status == 1) {
+        await popp.claimTask(task);
+      }
+    }
+    await popp.getPlanet();
+    await popp.startFarming();
+    while (popp.asset.frozenFarmingSd == 0) {
+      await Helper.delay(
+        popp.asset.time * 1000,
+        acc,
+        `Waiting for farming reward available to claim`,
+        popp
+      );
+      await popp.getAsset(false);
+      if (popp.asset.frozenFarmingSd != 0) {
+        await Helper.delay(3000, acc, `Its Farming Claim Time...`, popp);
+      }
     }
 
-    if (tabizoo.mining.nextClaimTimeInSecond == 0) {
-      twist.log(`Try To Claiming mining Reward`, user, tabizoo);
-      await tabizoo.claimMining();
-      await Helper.sleep(2000, user, `Mining Reward Claimed`, tabizoo);
-    }
-
-    // while (tabizoo.user.coins > RULE_GAME.LEVELUP[tabizoo.user.level + 1]) {
-    twist.log(`Try To Upgrade Mining Level`, user, tabizoo);
-    await tabizoo.levelUp();
-    await Helper.sleep(
-      2000,
-      user,
-      `Mining Level Will Will Be Upgraded Automatically If Balance Is Enough`,
-      tabizoo
-    );
-    // }
-
-    await Helper.sleep(
-      tabizoo.mining.nextClaimTimeInSecond * 1000,
-      user,
-      `Waiting for retry again in ${Helper.msToTime(
-        tabizoo.mining.nextClaimTimeInSecond * 1000
-      )} to Claim mining Reward`,
-      tabizoo
-    );
-
-    twist.clear();
+    await popp.claimFarming();
+    twist.clear(acc);
     twist.clearInfo();
-    await operation(user, query, queryObj);
+    await Helper.delay(
+      10000,
+      acc,
+      `Account ${acc.id} Processing Complete`,
+      popp
+    );
+    await operation(acc, query, queryObj);
   } catch (error) {
+    twist.clear(acc);
+    twist.clearInfo();
+    await Helper.delay(5000, acc, `Error : ${error.message}`);
     throw error;
   }
 }
@@ -122,9 +114,10 @@ async function startBot() {
 
 (async () => {
   try {
+    logger.clear();
     logger.info("");
     logger.info("Application Started");
-    console.log("TABIZOO BOT");
+    console.log("POPP To The Moon BOT");
     console.log("By : Widiskel");
     console.log("Dont forget to run git pull to keep up to date");
     await startBot();
@@ -132,5 +125,6 @@ async function startBot() {
     twist.clear();
     twist.clearInfo();
     console.log("Error During executing bot", error);
+    await startBot();
   }
 })();

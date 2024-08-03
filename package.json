@@ -1,24 +1,24 @@
 {
-  "name": "tabizoo-mining-bot",
+  "name": "popp-mining-bot",
   "version": "1.0.0",
   "type": "module",
-  "description": "Tabizoo Mining Bot",
+  "description": "Popp Mining Bot",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "test": "node test.js"
   },
   "keywords": [
-    "tabizoo",
-    "tabizoo-bot",
+    "popp",
+    "popp-bot",
     "tabi",
-    "tabizoo mining bot"
+    "popp mining bot"
   ],
   "author": "Widiskel",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Widiskel/tabizoo-mining-bot.git"
+    "url": "git+https://github.com/Widiskel/popp-mining-bot.git"
   },
   "dependencies": {
     "input": "^1.0.1",
