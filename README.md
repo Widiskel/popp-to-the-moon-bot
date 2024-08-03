@@ -60,10 +60,11 @@ Popp to the moon is Mining game on Telegram that allow you to earn more SD.
 
 1. clone project repo `git clone https://github.com/Widiskel/popp-to-the-moon-bot.git` and cd to project dir `cd popp-to-the-moon-bot`
 2. run `npm install`
-3. run `cp src/config/config_tmp.js src/config/config.js`
+3. run `npm i telegram@2.22.2`
+4. run `cp src/config/config_tmp.js src/config/config.js`
    To configure the app, open `src/config.js` and add your telegram app id and hash there
-4. run `mkdir sessions`
-5. to start the app run `npm run start`
+5. run `mkdir sessions`
+6. to start the app run `npm run start`
 
 ## Setup Session
 
