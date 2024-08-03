@@ -1,6 +1,6 @@
 # Popp To The Moon BOT
 
-## Table Of Content
+## Table Of Contents
 - [Popp To The Moon BOT](#popp-to-the-moon-bot)
   - [POPP Social Summer Airdrop](#popp-social-summer-airdrop)
   - [POPP To The Moon](#popp-to-the-moon)
