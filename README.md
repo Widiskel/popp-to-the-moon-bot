@@ -48,6 +48,8 @@ Popp to the moon is Mining game on Telegram that allow you to earn more SD.
 - Auto Mining
 - Auto Claim Mining Reward
 - Auto Check In
+- Auto Explore Planet
+- Auto Complete SOME missoin
 
 ## Prerequisite
 
