@@ -19,11 +19,13 @@ New Airdrops: POPP SOCIAL SUMMER
 
 ➡️ Mint TBA  :  https://socialsummer.ai/invite?code=ZGUNMW
 👉 Use code: ZGUNMW (Earn extra bonus)
-➖️ Mint Price : 0.003 ETH Taiko ( First 10K Minter ) 0.006 Now
-➖️ You Can Use New Wallet
-➡️ Bridge ETH L2 to Taiko at Least 0.003 ETH
-✔ Mint TBA NFT
-✔ Earn USDT, NFTs, tokens, whitelists, airdrops, and over 40K $SD by completing tasks. 
+
+- Mint Price : 0.003 ETH Taiko ( First 10K Minter ) 0.006 Now
+- You Can Use New Wallet
+- Bridge ETH L2 to Taiko at Least 0.006 ETH
+- Mint TBA NFT
+- Earn USDT, NFTs, tokens, whitelists, airdrops, and over 40K $SD by completing tasks.
+   
 ➡️ Bridge Via : gas.zip or owlto
 
 📖 As TBA holders, you will get PoPP Token airdrop worth millions directly after TGE, and receive extra bonuses from 
@@ -35,12 +37,13 @@ over 200 global projects for the SocialSummer campaign!
 PoPP To The Moon Task Mission is Live! Join Social Summer and Claim $SD to Get PoPP Tokens
 🏷 Reward Total: PoPP $SD & $20,000,000 USDT Prize Pool
 ➡️ Go to : https://t.me/PoPPtothemoon_bot/moon?startapp=5703822759
-➖️ Login
-➖️ Launch Rocket
-➖️ Free to Farm SDs
-➖️ Use your free coupons for the lucky draw
-➖️ Free to Win $ETH Box
-➖️ Finish the task mission to get more PoPP SD
+
+- Login
+- Launch Rocket
+- Free to Farm SDs
+- Use your free coupons for the lucky draw
+- Free to Win $ETH Box
+- Finish the task mission to get more PoPP SD
 
 Popp to the moon is Mining game on Telegram that allow you to earn more SD.
 
