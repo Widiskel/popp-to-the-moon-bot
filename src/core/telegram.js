@@ -44,7 +44,7 @@ export class Telegram {
         await this.sessionCreation();
       } else if (choice == 2) {
         Helper.resetSession(this.sessionName);
-        await Helper.sleep(3000);
+        await Helper.delay(3000);
         await this.onBoarding();
       } else if (choice == 3) {
         if (Helper.getSession(this.sessionName)?.length == 0) {
@@ -81,7 +81,7 @@ export class Telegram {
       logger.info(`Session ${this.sessionName} - Created`);
       console.log(`Session ${this.sessionName} - Created`);
       this.storeSession.save();
-      await Helper.sleep(3000);
+      await Helper.delay(3000);
       await this.init();
     } catch (error) {
       throw error;
@@ -133,7 +133,7 @@ export class Telegram {
             );
             logger.info(`${this.client.session.serverAddress} | Sleep ${fls}s`);
 
-            await Helper.sleep((fls + 3) * 1000);
+            await Helper.delay((fls + 3) * 1000);
           } else {
             throw error;
           }
