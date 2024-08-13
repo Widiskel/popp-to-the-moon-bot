@@ -9,10 +9,10 @@ async function operation(acc, query, queryObj) {
   try {
     const popp = new Popp(acc, query, queryObj);
     await popp.login();
-    // if (popp.signIn == 0) {
-    //   await popp.checkIn();
-    // }
-    // await popp.getAsset();
+    if (popp.signIn == 0) {
+      await popp.checkIn();
+    }
+    await popp.getAsset();
     await popp.getTask();
     const uncompletableTask = [5, 7, 9];
     for (const task of popp.task) {
@@ -28,22 +28,22 @@ async function operation(acc, query, queryObj) {
         }
       }
     }
-    // await popp.getPlanet();
-    // await popp.startFarming();
-    // while (popp.asset.frozenFarmingSd == 0) {
-    //   await Helper.delay(
-    //     popp.asset.time * 1000,
-    //     acc,
-    //     `Waiting for farming reward available to claim`,
-    //     popp
-    //   );
-    //   await popp.getAsset(false);
-    //   if (popp.asset.frozenFarmingSd != 0) {
-    //     await Helper.delay(3000, acc, `Its Farming Claim Time...`, popp);
-    //   }
-    // }
+    await popp.getPlanet();
+    await popp.startFarming();
+    while (popp.asset.frozenFarmingSd == 0) {
+      await Helper.delay(
+        popp.asset.time * 1000,
+        acc,
+        `Waiting for farming reward available to claim`,
+        popp
+      );
+      await popp.getAsset(false);
+      if (popp.asset.frozenFarmingSd != 0) {
+        await Helper.delay(3000, acc, `Its Farming Claim Time...`, popp);
+      }
+    }
 
-    // await popp.claimFarming();
+    await popp.claimFarming();
     twist.clear(acc);
     twist.clearInfo();
     await Helper.delay(
