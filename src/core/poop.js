@@ -19,7 +19,7 @@ export class Popp extends API {
       };
 
       const res = await this.fetch("/pass/login", "POST", undefined, loginBody);
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(1000, this.account, `Successfully Login`, this);
         this.token = res.data.token;
         this.signIn = res.data.signIn;
@@ -36,7 +36,7 @@ export class Popp extends API {
         await Helper.delay(1000, this.account, `Getting Assets...`, this);
       }
       const res = await this.fetch("/moon/asset", "GET", this.token);
-      if (res.code == "00") {
+      if (res.code == "200") {
         this.asset = res.data;
         if (msg) {
           await Helper.delay(
@@ -57,7 +57,7 @@ export class Popp extends API {
     try {
       await Helper.delay(1000, this.account, `Starting Farming...`, this);
       const res = await this.fetch("/moon/farming", "GET", this.token);
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(
           1000,
           this.account,
@@ -83,7 +83,7 @@ export class Popp extends API {
         this
       );
       const res = await this.fetch("/moon/claim/farming", "GET", this.token);
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(1000, this.account, `Farming Reward Claimed`, this);
         await this.getAsset(false);
       } else {
@@ -102,7 +102,7 @@ export class Popp extends API {
         this
       );
       const res = await this.fetch("/moon/planets", "GET", this.token);
-      if (res.code == "00") {
+      if (res.code == "200") {
         this.planet = res.data;
         // console.log(this.planet);
         if (this.planet.length > 0) {
@@ -146,7 +146,7 @@ export class Popp extends API {
         "GET",
         this.token
       );
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(
           3000,
           this.account,
@@ -165,7 +165,7 @@ export class Popp extends API {
     try {
       await Helper.delay(1000, this.account, `Getting Tasks...`, this);
       const res = await this.fetch("/moon/task/list", "GET", this.token);
-      if (res.code == "00") {
+      if (res.code == "200") {
         this.task = res.data;
         await Helper.delay(1000, this.account, `Successfully Get Task`, this);
       } else {
@@ -180,7 +180,7 @@ export class Popp extends API {
     try {
       await Helper.delay(1000, this.account, `Try to Sign In...`, this);
       const res = await this.fetch("/moon/sign/in", "POST", this.token);
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(1000, this.account, `Signed In`, this);
         this.asset = res.data;
       } else if (res.code == "400") {
@@ -206,7 +206,7 @@ export class Popp extends API {
         this
       );
       const res = await this.fetch("/moon/task/visit/ss", "POST", this.token);
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(
           1000,
           this.account,
@@ -234,7 +234,7 @@ export class Popp extends API {
         "GET",
         this.token
       );
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(
           5000,
           this.account,
@@ -257,7 +257,7 @@ export class Popp extends API {
         "GET",
         this.token
       );
-      if (res.code == "00") {
+      if (res.code == "200") {
         await Helper.delay(
           3000,
           this.account,
