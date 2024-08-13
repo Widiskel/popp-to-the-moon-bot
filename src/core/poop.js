@@ -213,6 +213,7 @@ export class Popp extends API {
           `Task ${task.name} Completed Successfully`,
           this
         );
+        await this.claimTask(task);
         await this.getAsset(false);
       } else {
         throw Error(res.msg);
@@ -230,7 +231,7 @@ export class Popp extends API {
         this
       );
       const res = await this.fetch(
-        `/moon/task/check?taskId=${task.taskId}`,
+        `/moon/task/cex?taskId=${task.taskId}`,
         "GET",
         this.token
       );
@@ -243,7 +244,12 @@ export class Popp extends API {
         );
         await this.claimTask(task);
       } else {
-        throw Error(res.msg);
+        await Helper.delay(
+          3000,
+          this.account,
+          `Task ${task.name} Failed to Complete , Error : ${res.msg}...`,
+          this
+        );
       }
     } catch (error) {
       throw error;

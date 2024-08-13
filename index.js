@@ -9,38 +9,41 @@ async function operation(acc, query, queryObj) {
   try {
     const popp = new Popp(acc, query, queryObj);
     await popp.login();
-    if (popp.signIn == 0) {
-      await popp.checkIn();
-    }
-    await popp.getAsset();
+    // if (popp.signIn == 0) {
+    //   await popp.checkIn();
+    // }
+    // await popp.getAsset();
     await popp.getTask();
+    const uncompletableTask = [5, 7, 9];
     for (const task of popp.task) {
-      if (task.status == 0 && task.current == task.treshold && task.type != 1) {
-        if (task.taskId == 1) {
-          await popp.completeVisitTask(task);
-        } else {
-          await popp.checkTask(task);
+      if (!uncompletableTask.includes(task.taskId)) {
+        if (task.status == 0 && task.current == task.threshold) {
+          if (task.taskId == 1) {
+            await popp.completeVisitTask(task);
+          } else {
+            await popp.checkTask(task);
+          }
+        } else if (task.status == 1) {
+          await popp.claimTask(task);
         }
-      } else if (task.status == 1) {
-        await popp.claimTask(task);
       }
     }
-    await popp.getPlanet();
-    await popp.startFarming();
-    while (popp.asset.frozenFarmingSd == 0) {
-      await Helper.delay(
-        popp.asset.time * 1000,
-        acc,
-        `Waiting for farming reward available to claim`,
-        popp
-      );
-      await popp.getAsset(false);
-      if (popp.asset.frozenFarmingSd != 0) {
-        await Helper.delay(3000, acc, `Its Farming Claim Time...`, popp);
-      }
-    }
+    // await popp.getPlanet();
+    // await popp.startFarming();
+    // while (popp.asset.frozenFarmingSd == 0) {
+    //   await Helper.delay(
+    //     popp.asset.time * 1000,
+    //     acc,
+    //     `Waiting for farming reward available to claim`,
+    //     popp
+    //   );
+    //   await popp.getAsset(false);
+    //   if (popp.asset.frozenFarmingSd != 0) {
+    //     await Helper.delay(3000, acc, `Its Farming Claim Time...`, popp);
+    //   }
+    // }
 
-    await popp.claimFarming();
+    // await popp.claimFarming();
     twist.clear(acc);
     twist.clearInfo();
     await Helper.delay(
