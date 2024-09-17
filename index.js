@@ -56,8 +56,8 @@ async function operation(acc, query, queryObj) {
   } catch (error) {
     twist.clear(acc);
     twist.clearInfo();
-    await Helper.delay(5000, acc, `Error : ${error.message}`);
-    throw error;
+    await Helper.delay(10000, acc, `Error : ${error.message}`);
+    await this.operation(acc, query, queryObj);
   }
 }
 
