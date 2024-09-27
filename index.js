@@ -13,16 +13,15 @@ async function operation(acc, query, queryObj) {
       await popp.checkIn();
     }
     await popp.getAsset();
-    await popp.getTask();
+    await popp.getTask(true);
     const uncompletableTask = [5, 7, 9];
     for (const task of popp.task) {
       if (!uncompletableTask.includes(task.taskId)) {
+        if (task.taskId == 1 && task.status === 0) {
+          await popp.completeVisitTask(task);
+        }
         if (task.status == 0 && task.current == task.threshold) {
-          if (task.taskId == 1) {
-            await popp.completeVisitTask(task);
-          } else {
-            await popp.checkTask(task);
-          }
+          await popp.checkTask(task);
         } else if (task.status == 1) {
           await popp.claimTask(task);
         }

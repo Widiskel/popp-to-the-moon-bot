@@ -113,7 +113,8 @@ export class Popp extends API {
               await Helper.delay(
                 1000,
                 this.account,
-                `Cannot Explore Planet Probe is not Enough...`
+                `Cannot Explore Planet Probe is not Enough...`,
+                this
               );
             }
           }
@@ -161,13 +162,14 @@ export class Popp extends API {
       throw error;
     }
   }
-  async getTask() {
+  async getTask(msg = false) {
     try {
-      await Helper.delay(1000, this.account, `Getting Tasks...`, this);
+      if (msg) await Helper.delay(1000, this.account, `Getting Tasks...`, this);
       const res = await this.fetch("/moon/task/list", "GET", this.token);
       if (res.code == "200") {
         this.task = res.data;
-        await Helper.delay(1000, this.account, `Successfully Get Task`, this);
+        if (msg)
+          await Helper.delay(1000, this.account, `Successfully Get Task`, this);
       } else {
         throw Error(res.msg);
       }
@@ -213,8 +215,9 @@ export class Popp extends API {
           `Task ${task.name} Completed Successfully`,
           this
         );
-        await this.claimTask(task);
+        await this.getTask();
         await this.getAsset(false);
+        await this.claimTask(task);
       } else {
         throw Error(res.msg);
       }
@@ -231,13 +234,13 @@ export class Popp extends API {
         this
       );
       const res = await this.fetch(
-        `/moon/task/cex?taskId=${task.taskId}`,
+        `/moon/task/check?taskId=${task.taskId}`,
         "GET",
         this.token
       );
       if (res.code == "200") {
         await Helper.delay(
-          5000,
+          1000,
           this.account,
           `Task ${task.name} Checked...`,
           this
